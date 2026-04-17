@@ -35,9 +35,9 @@ const Login: React.FC = () => {
         localStorage.setItem('user', JSON.stringify(result.user));
         toast.success('Login successful!');
         
-        // Redirect to appropriate dashboard based on user role
+        // Redirect to appropriate page based on user role
         if (result.user.role === 'student') {
-          navigate('/student-dashboard');
+          navigate('/discover');
         } else if (result.user.role === 'school') {
           navigate('/school-dashboard');
         } else {

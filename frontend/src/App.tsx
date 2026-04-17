@@ -6,8 +6,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
-import StudentDashboard from './pages/StudentDashboard';
-import SchoolDashboard from './pages/SchoolDashboard';
+import StudentDiscovery from './pages/StudentDiscovery';
+import SchoolShowcase from './pages/SchoolShowcase';
 import './App.css';
 
 function App() {
@@ -21,8 +21,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/student-dashboard" element={<StudentDashboard />} />
-          <Route path="/school-dashboard" element={<SchoolDashboard />} />
+          <Route path="/student-dashboard" element={<StudentDiscovery />} />
+          <Route path="/discover" element={<StudentDiscovery />} />
+          <Route path="/school-dashboard" element={<SchoolShowcase />} />
         </Routes>
       </div>
     </Router>

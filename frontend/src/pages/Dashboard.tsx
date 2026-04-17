@@ -65,9 +65,9 @@ const Dashboard: React.FC = () => {
       localStorage.setItem('access_token', 'mock-token-for-development');
     }
     
-    // Redirect to appropriate dashboard based on role
+    // Redirect to appropriate page based on role
     if (parsedUser.role === 'student') {
-      navigate('/student-dashboard');
+      navigate('/discover');
       return;
     } else if (parsedUser.role === 'school') {
       navigate('/school-dashboard');
