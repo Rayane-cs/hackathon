@@ -15,7 +15,6 @@ import {
 } from 'lucide-react';
 import Button from '../components/Button';
 import Card from '../components/Card';
-import Navbar from '../components/Navbar';
 
 interface User {
   id: number;
@@ -37,6 +36,8 @@ interface Event {
   created_by?: number;
   is_saved?: boolean;
   school_name?: string;
+  type?: 'event' | 'workshop' | 'seminar';
+  status?: 'active' | 'completed' | 'cancelled';
 }
 
 interface School {
@@ -116,68 +117,78 @@ const StudentDashboard: React.FC = () => {
     const mockEvents = [
       {
         id: 1,
-        title: 'Science Fair 2024',
+        title: 'Science Fair 2026',
         description: 'Annual science fair showcasing student projects and experiments from all grades.',
-        date: '2024-12-25T10:00:00',
+        date: '2026-05-25T10:00:00',
         capacity: 50,
         location: 'School Auditorium',
         registered_count: 35,
         available_spots: 15,
         is_full: false,
         school_name: 'École Internationale',
-        is_saved: false
+        is_saved: false,
+        type: 'event' as const,
+        status: 'active' as const
       },
       {
         id: 2,
         title: 'Programming Workshop',
         description: 'Learn the basics of Python programming with hands-on coding exercises.',
-        date: '2024-12-20T14:00:00',
+        date: '2026-05-20T14:00:00',
         capacity: 30,
         location: 'Computer Lab',
         registered_count: 28,
         available_spots: 2,
         is_full: false,
         school_name: 'Lycée Technique',
-        is_saved: true
+        is_saved: true,
+        type: 'workshop' as const,
+        status: 'active' as const
       },
       {
         id: 3,
         title: 'Art Exhibition',
         description: 'Student artwork showcase featuring paintings, sculptures, and digital art.',
-        date: '2024-12-18T09:00:00',
+        date: '2026-05-18T09:00:00',
         capacity: 100,
         location: 'Art Gallery Hall',
         registered_count: 100,
         available_spots: 0,
         is_full: true,
         school_name: 'École des Arts',
-        is_saved: false
+        is_saved: false,
+        type: 'event' as const,
+        status: 'active' as const
       },
       {
         id: 4,
-        title: 'Mathematics Competition',
-        description: 'Inter-school math competition with prizes for top performers.',
-        date: '2025-01-15T10:00:00',
+        title: 'Mathematics Seminar',
+        description: 'Advanced mathematics seminar for high school students.',
+        date: '2026-03-15T10:00:00',
         capacity: 40,
-        location: 'Main Hall',
-        registered_count: 12,
-        available_spots: 28,
+        location: 'Lecture Hall B',
+        registered_count: 38,
+        available_spots: 2,
         is_full: false,
         school_name: 'Lycée Algiers',
-        is_saved: false
+        is_saved: false,
+        type: 'seminar' as const,
+        status: 'completed' as const
       },
       {
         id: 5,
-        title: 'Sports Tournament',
-        description: 'Annual sports tournament including football, basketball, and athletics.',
-        date: '2025-01-20T08:00:00',
-        capacity: 200,
-        location: 'Sports Complex',
-        registered_count: 150,
-        available_spots: 50,
+        title: 'Robotics Workshop',
+        description: 'Introduction to robotics and Arduino programming.',
+        date: '2026-06-10T13:00:00',
+        capacity: 25,
+        location: 'STEM Lab',
+        registered_count: 20,
+        available_spots: 5,
         is_full: false,
         school_name: 'École Internationale',
-        is_saved: true
+        is_saved: true,
+        type: 'workshop' as const,
+        status: 'active' as const
       }
     ];
     setEvents(mockEvents);
@@ -247,6 +258,22 @@ const StudentDashboard: React.FC = () => {
     toast.success('Event removed from saved list!');
   };
 
+  const getEventTypeColor = (type?: string) => {
+    switch (type) {
+      case 'workshop': return 'bg-orange-100 text-orange-800';
+      case 'seminar': return 'bg-purple-100 text-purple-800';
+      default: return 'bg-blue-100 text-blue-800';
+    }
+  };
+
+  const getStatusColor = (status?: string) => {
+    switch (status) {
+      case 'completed': return 'bg-gray-100 text-gray-800';
+      case 'cancelled': return 'bg-red-100 text-red-800';
+      default: return 'bg-green-100 text-green-800';
+    }
+  };
+
   const handleRegister = async (eventId: number) => {
     // Mock registration - no backend required
     setEvents(prev => prev.map(event => 
@@ -289,7 +316,6 @@ const StudentDashboard: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -307,9 +333,8 @@ const StudentDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -318,6 +343,7 @@ const StudentDashboard: React.FC = () => {
           <p className="text-gray-600">
             Discover amazing events, follow your favorite schools, and save events for later.
           </p>
+          <hr className="w-[600px] max-w-full border-gray-300 mt-4 border-t-2" />
         </div>
 
         {/* Stats Cards */}
@@ -352,7 +378,7 @@ const StudentDashboard: React.FC = () => {
         {featuredEvents.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">🔥 Featured Events</h2>
+              <h2 className="text-3xl font-extrabold text-blue-900 tracking-tight"> Featured Events</h2>
               <div className="flex space-x-2">
                 <button 
                   onClick={prevSlide}
@@ -376,7 +402,7 @@ const StudentDashboard: React.FC = () => {
               >
                 {featuredEvents.map((event) => (
                   <div key={event.id} className="w-1/3 flex-shrink-0 px-2">
-                    <Card className="h-full bg-gradient-to-br from-white to-blue-50 border-blue-100">
+                    <Card className="h-full bg-gradient-to-br from-white to-blue-50 border-blue-100 shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300">
                       <div className="relative">
                         <div className="absolute top-2 right-2">
                           <button
@@ -397,7 +423,7 @@ const StudentDashboard: React.FC = () => {
                       <div className="space-y-1 text-sm text-gray-500 mb-4">
                         <div className="flex items-center">
                           <Calendar className="w-4 h-4 mr-2" />
-                          {new Date(event.date).toLocaleDateString()}
+                          {new Date(event.date).toLocaleDateString()} at {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>
                         <div className="flex items-center">
                           <MapPin className="w-4 h-4 mr-2" />
@@ -405,7 +431,7 @@ const StudentDashboard: React.FC = () => {
                         </div>
                         <div className="flex items-center">
                           <Users className="w-4 h-4 mr-2" />
-                          {event.registered_count}/{event.capacity} registered
+                          {event.registered_count}/{event.capacity} seats
                         </div>
                       </div>
                       <Button
@@ -486,7 +512,7 @@ const StudentDashboard: React.FC = () => {
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredEvents.map((event) => (
-                  <Card key={event.id} hover className="relative">
+                  <Card key={event.id} hover className="relative shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                     <div className="absolute top-4 right-4 z-10">
                       <button
                         onClick={() => event.is_saved ? handleUnsaveEvent(event.id) : handleSaveEvent(event.id)}
@@ -511,12 +537,25 @@ const StudentDashboard: React.FC = () => {
                       </span>
                     </div>
                     
+                    {event.type && (
+                      <div className="flex gap-2 mb-3">
+                        <span className={`px-2 py-1 text-xs rounded-full ${getEventTypeColor(event.type)}`}>
+                          {event.type}
+                        </span>
+                        {event.status && (
+                          <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(event.status)}`}>
+                            {event.status}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    
                     <p className="text-gray-600 mb-4 line-clamp-2">{event.description}</p>
                     
                     <div className="space-y-2 mb-4 text-sm text-gray-500">
                       <div className="flex items-center">
                         <Calendar className="w-4 h-4 mr-2" />
-                        {new Date(event.date).toLocaleDateString()} at {new Date(event.date).toLocaleTimeString()}
+                        {new Date(event.date).toLocaleDateString()} at {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                       {event.location && (
                         <div className="flex items-center">
@@ -526,7 +565,7 @@ const StudentDashboard: React.FC = () => {
                       )}
                       <div className="flex items-center">
                         <Users className="w-4 h-4 mr-2" />
-                        {event.registered_count}/{event.capacity} registered
+                        {event.registered_count}/{event.capacity} seats
                       </div>
                     </div>
                     
@@ -556,7 +595,7 @@ const StudentDashboard: React.FC = () => {
         {activeTab === 'schools' && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">🏫 All Schools</h2>
+              <h2 className="text-2xl font-bold text-gray-900"> All Schools</h2>
               <div className="relative">
                 <input
                   type="text"
@@ -611,7 +650,7 @@ const StudentDashboard: React.FC = () => {
         {/* Following Tab Content */}
         {activeTab === 'following' && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">❤️ Schools You Follow</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6"> Schools You Follow</h2>
             
             {followedSchools.length === 0 ? (
               <Card>
@@ -672,7 +711,7 @@ const StudentDashboard: React.FC = () => {
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {savedEvents.map((event) => (
-                  <Card key={event.id} hover className="relative">
+                  <Card key={event.id} hover className="relative shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                     <div className="absolute top-4 right-4 z-10">
                       <button
                         onClick={() => handleUnsaveEvent(event.id)}
@@ -693,12 +732,25 @@ const StudentDashboard: React.FC = () => {
                       </span>
                     </div>
                     
+                    {event.type && (
+                      <div className="flex gap-2 mb-3">
+                        <span className={`px-2 py-1 text-xs rounded-full ${getEventTypeColor(event.type)}`}>
+                          {event.type}
+                        </span>
+                        {event.status && (
+                          <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(event.status)}`}>
+                            {event.status}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    
                     <p className="text-gray-600 mb-4 line-clamp-2">{event.description}</p>
                     
                     <div className="space-y-2 mb-4 text-sm text-gray-500">
                       <div className="flex items-center">
                         <Calendar className="w-4 h-4 mr-2" />
-                        {new Date(event.date).toLocaleDateString()} at {new Date(event.date).toLocaleTimeString()}
+                        {new Date(event.date).toLocaleDateString()} at {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                       {event.location && (
                         <div className="flex items-center">
@@ -708,7 +760,7 @@ const StudentDashboard: React.FC = () => {
                       )}
                       <div className="flex items-center">
                         <Users className="w-4 h-4 mr-2" />
-                        {event.registered_count}/{event.capacity} registered
+                        {event.registered_count}/{event.capacity} seats
                       </div>
                     </div>
                     
