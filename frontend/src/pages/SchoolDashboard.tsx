@@ -497,16 +497,6 @@ const SchoolDashboard: React.FC = () => {
                       >
                         View Participants
                       </Button>
-                      <Button
-                        variant="primary"
-                        className="flex-1 text-sm"
-                        onClick={() => {
-                          // Placeholder for Register Now action
-                          toast.success('Registration feature coming soon!');
-                        }}
-                      >
-                        Register Now
-                      </Button>
                     </div>
                   </Card>
                 ))}
