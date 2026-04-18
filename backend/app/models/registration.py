@@ -1,45 +1,50 @@
 from datetime import datetime
+import uuid
 from app import db
 
 class Registration(db.Model):
     __tablename__ = 'registrations'
     
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-    status = db.Column(db.Enum('pending', 'approved', 'rejected', name='registration_status'), default='pending')
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    event_id = db.Column(db.String(36), db.ForeignKey('events.id'), nullable=False)
+    student_id = db.Column(db.String(36), db.ForeignKey('students.id'), nullable=False)
+    status = db.Column(db.Enum('pending', 'confirmed', 'cancelled', 'attended', name='registration_status'), default='pending')
+    payment_status = db.Column(db.Enum('unpaid', 'paid', 'refunded', name='payment_status'), default='unpaid')
     registered_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    notes = db.Column(db.Text, nullable=True)
     
     # Unique constraint to prevent duplicate registrations
-    __table_args__ = (db.UniqueConstraint('user_id', 'event_id', name='unique_user_event_registration'),)
+    __table_args__ = (db.UniqueConstraint('event_id', 'student_id', name='unique_event_student_registration'),)
     
-    def approve(self):
-        """Approve the registration"""
-        self.status = 'approved'
-        self.updated_at = datetime.utcnow()
+    def confirm(self):
+        """Confirm the registration"""
+        self.status = 'confirmed'
     
-    def reject(self, notes=None):
-        """Reject the registration"""
-        self.status = 'rejected'
-        self.notes = notes
-        self.updated_at = datetime.utcnow()
+    def mark_attended(self):
+        """Mark student as attended"""
+        self.status = 'attended'
     
-    def to_dict(self):
+    def cancel(self):
+        """Cancel the registration"""
+        self.status = 'cancelled'
+    
+    def to_dict(self, include_event=False, include_student=False):
         """Convert registration object to dictionary"""
-        return {
+        data = {
             'id': self.id,
-            'user_id': self.user_id,
-            'user_name': self.user.name if self.user else None,
-            'user_email': self.user.email if self.user else None,
             'event_id': self.event_id,
-            'event_title': self.event.title if self.event else None,
+            'student_id': self.student_id,
             'status': self.status,
-            'registered_at': self.registered_at.isoformat(),
-            'updated_at': self.updated_at.isoformat(),
-            'notes': self.notes
+            'payment_status': self.payment_status,
+            'registered_at': self.registered_at.isoformat() if self.registered_at else None,
         }
+        
+        if include_event and self.event:
+            data['event'] = self.event.to_dict(include_academy=True)
+        
+        if include_student and self.student:
+            data['student'] = self.student.to_dict()
+        
+        return data
     
     def __repr__(self):
-        return f'<Registration {self.user.name} -> {self.event.title} ({self.status})>'
+        return f'<Registration {self.student_id} -> {self.event_id} ({self.status})>'
