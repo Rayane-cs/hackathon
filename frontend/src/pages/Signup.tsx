@@ -68,7 +68,7 @@ const Signup: React.FC = () => {
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900">
-              Join Maktabi
+              Join Scholaria
             </h2>
             <p className="mt-2 text-gray-600">
               Create your account to get started
@@ -91,7 +91,7 @@ const Signup: React.FC = () => {
                   })}
                   type="text"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  placeholder="John Doe"
+                  placeholder="Enter your full name"
                 />
                 {errors.name && (
                   <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
@@ -107,7 +107,7 @@ const Signup: React.FC = () => {
                     required: 'Email is required',
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Invalid email address'
+                      message: 'Please enter a valid email address (e.g., name@example.com)'
                     }
                   })}
                   type="email"
@@ -179,10 +179,6 @@ const Signup: React.FC = () => {
                 {errors.confirmPassword && (
                   <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
                 )}
-              </div>
-
-              <div className="text-sm text-gray-600">
-                <p>By creating an account, you agree to our Terms of Service and Privacy Policy.</p>
               </div>
 
               <Button

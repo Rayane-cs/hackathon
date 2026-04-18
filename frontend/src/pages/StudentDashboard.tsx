@@ -9,7 +9,6 @@ import {
   Users, 
   School, 
   Plus,
-  Search,
   ChevronLeft,
   ChevronRight,
   CheckCircle
@@ -339,7 +338,7 @@ const StudentDashboard: React.FC = () => {
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user?.name}!
+            Welcome back, {user?.name}! 🎓
           </h1>
           <p className="text-gray-600">
             Discover amazing events, follow your favorite schools, and save events for later.
@@ -350,39 +349,27 @@ const StudentDashboard: React.FC = () => {
         {/* Stats Cards */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold">{events.length}</div>
-                <div className="text-blue-100">Total Events</div>
-              </div>
-              <Calendar className="w-8 h-8 text-blue-200" />
+            <div className="text-center">
+              <div className="text-3xl font-bold mb-1">{events.length}</div>
+              <div className="text-blue-100">Total Events</div>
             </div>
           </Card>
           <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold">{schools.length}</div>
-                <div className="text-green-100">Schools</div>
-              </div>
-              <School className="w-8 h-8 text-green-200" />
+            <div className="text-center">
+              <div className="text-3xl font-bold mb-1">{schools.length}</div>
+              <div className="text-green-100">Schools</div>
             </div>
           </Card>
           <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold">{followedSchools.length}</div>
-                <div className="text-purple-100">Following</div>
-              </div>
-              <Heart className="w-8 h-8 text-purple-200" />
+            <div className="text-center">
+              <div className="text-3xl font-bold mb-1">{followedSchools.length}</div>
+              <div className="text-purple-100">Following</div>
             </div>
           </Card>
           <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold">{savedEvents.length}</div>
-                <div className="text-orange-100">Saved</div>
-              </div>
-              <Bookmark className="w-8 h-8 text-orange-200" />
+            <div className="text-center">
+              <div className="text-3xl font-bold mb-1">{savedEvents.length}</div>
+              <div className="text-orange-100">Saved</div>
             </div>
           </Card>
         </div>
@@ -453,7 +440,7 @@ const StudentDashboard: React.FC = () => {
                         disabled={event.is_full}
                         onClick={() => handleRegister(event.id)}
                       >
-                        {event.is_full ? 'Event Full' : 'Register Now'}
+                        {event.is_full ? 'Event Full 🔒' : 'Register Now ✨'}
                       </Button>
                     </Card>
                   </div>
@@ -467,22 +454,21 @@ const StudentDashboard: React.FC = () => {
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 mb-6">
             {[
-              { id: 'events', label: ' Browse Events', icon: Calendar },
-              { id: 'schools', label: ' Schools', icon: School },
-              { id: 'following', label: ' Following', icon: Heart },
-              { id: 'saved', label: '🔖 Saved', icon: Bookmark }
+              { id: 'events', label: '📅 Browse Events' },
+              { id: 'schools', label: '🏫 Schools' },
+              { id: 'following', label: '❤️ Following' },
+              { id: 'saved', label: '🔖 Saved' }
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-full font-medium transition-all ${
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white shadow-lg'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-100'
                 }`}
               >
-                <tab.icon className="w-4 h-4" />
-                <span>{tab.label}</span>
+                {tab.label}
               </button>
             ))}
           </div>
@@ -492,21 +478,20 @@ const StudentDashboard: React.FC = () => {
         {activeTab === 'events' && (
           <div>
             {/* Search and Filter */}
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="flex flex-col md:flex-row gap-4 mb-8">
+              <div className="relative flex-1 max-w-md">
                 <input
                   type="text"
                   placeholder="Search events, schools, or keywords..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 />
               </div>
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               >
                 <option value="all">All Events</option>
                 <option value="saved">Saved Events</option>
@@ -597,7 +582,7 @@ const StudentDashboard: React.FC = () => {
                       disabled={event.is_full}
                       onClick={() => handleRegister(event.id)}
                     >
-                      {event.is_full ? 'Event Full' : 'Register Now'}
+                      {event.is_full ? 'Event Full 🔒' : 'Register Now ✨'}
                     </Button>
                   </Card>
                 ))}
@@ -612,13 +597,12 @@ const StudentDashboard: React.FC = () => {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-900"> All Schools</h2>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search schools..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 />
               </div>
             </div>
@@ -786,7 +770,7 @@ const StudentDashboard: React.FC = () => {
                       disabled={event.is_full}
                       onClick={() => handleRegister(event.id)}
                     >
-                      {event.is_full ? 'Event Full' : 'Register Now'}
+                      {event.is_full ? 'Event Full 🔒' : 'Register Now ✨'}
                     </Button>
                   </Card>
                 ))}
