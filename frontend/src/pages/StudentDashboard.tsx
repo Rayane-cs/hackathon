@@ -391,7 +391,7 @@ const StudentDashboard: React.FC = () => {
         {featuredEvents.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl font-extrabold text-blue-900 tracking-tight">🔥 Featured Events</h2>
+              <h2 className="text-3xl font-extrabold text-blue-900 tracking-tight"> Featured Events</h2>
               <div className="flex space-x-2">
                 <button 
                   onClick={prevSlide}
@@ -467,9 +467,9 @@ const StudentDashboard: React.FC = () => {
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 mb-6">
             {[
-              { id: 'events', label: '🔍 Browse Events', icon: Calendar },
-              { id: 'schools', label: '🏫 Schools', icon: School },
-              { id: 'following', label: '❤️ Following', icon: Heart },
+              { id: 'events', label: ' Browse Events', icon: Calendar },
+              { id: 'schools', label: ' Schools', icon: School },
+              { id: 'following', label: ' Following', icon: Heart },
               { id: 'saved', label: '🔖 Saved', icon: Bookmark }
             ].map((tab) => (
               <button
@@ -610,7 +610,7 @@ const StudentDashboard: React.FC = () => {
         {activeTab === 'schools' && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">🏫 All Schools</h2>
+              <h2 className="text-2xl font-bold text-gray-900"> All Schools</h2>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
@@ -666,7 +666,7 @@ const StudentDashboard: React.FC = () => {
         {/* Following Tab Content */}
         {activeTab === 'following' && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">❤️ Schools You Follow</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6"> Schools You Follow</h2>
             
             {followedSchools.length === 0 ? (
               <Card>
