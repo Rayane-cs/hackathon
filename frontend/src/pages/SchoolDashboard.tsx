@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Button from '../components/Button';
 import Card from '../components/Card';
-import Navbar from '../components/Navbar';
 
 interface User {
   id: number;
@@ -46,7 +45,7 @@ const SchoolDashboard: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [activeTab, setActiveTab] = useState('events');
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   const [newEvent, setNewEvent] = useState({
     title: '',
     description: '',
@@ -61,7 +60,7 @@ const SchoolDashboard: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const userData = localStorage.getItem('user');
-    
+
     // Bypass authentication for development - comment out for production
     // if (!token || !userData) {
     //   navigate('/login');
@@ -83,7 +82,7 @@ const SchoolDashboard: React.FC = () => {
       localStorage.setItem('user', JSON.stringify(parsedUser));
       localStorage.setItem('access_token', 'mock-token-for-development');
     }
-    
+
     if (parsedUser.role !== 'school') {
       navigate('/student-dashboard');
       return;
@@ -91,7 +90,7 @@ const SchoolDashboard: React.FC = () => {
 
     setUser(parsedUser);
     fetchAllData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const fetchAllData = async () => {
@@ -110,9 +109,9 @@ const SchoolDashboard: React.FC = () => {
     const mockEvents = [
       {
         id: 1,
-        title: 'Science Fair 2024',
+        title: 'Science Fair 2026',
         description: 'Annual science fair showcasing student projects and experiments from all grades.',
-        date: '2024-12-25T10:00:00',
+        date: '2026-05-25T10:00:00',
         capacity: 50,
         location: 'School Auditorium',
         registered_count: 35,
@@ -120,13 +119,13 @@ const SchoolDashboard: React.FC = () => {
         is_full: false,
         type: 'event' as const,
         status: 'active' as const,
-        created_at: '2024-11-01T10:00:00'
+        created_at: '2026-04-01T10:00:00'
       },
       {
         id: 2,
         title: 'Programming Workshop',
         description: 'Learn the basics of Python programming with hands-on coding exercises.',
-        date: '2024-12-20T14:00:00',
+        date: '2026-05-20T14:00:00',
         capacity: 30,
         location: 'Computer Lab',
         registered_count: 28,
@@ -134,13 +133,13 @@ const SchoolDashboard: React.FC = () => {
         is_full: false,
         type: 'workshop' as const,
         status: 'active' as const,
-        created_at: '2024-11-15T10:00:00'
+        created_at: '2026-04-15T10:00:00'
       },
       {
         id: 3,
         title: 'Art Exhibition',
         description: 'Student artwork showcase featuring paintings, sculptures, and digital art.',
-        date: '2024-12-18T09:00:00',
+        date: '2026-05-18T09:00:00',
         capacity: 100,
         location: 'Art Gallery Hall',
         registered_count: 100,
@@ -148,13 +147,13 @@ const SchoolDashboard: React.FC = () => {
         is_full: true,
         type: 'event' as const,
         status: 'active' as const,
-        created_at: '2024-11-20T10:00:00'
+        created_at: '2026-04-10T10:00:00'
       },
       {
         id: 4,
         title: 'Mathematics Seminar',
         description: 'Advanced mathematics seminar for high school students.',
-        date: '2024-12-15T10:00:00',
+        date: '2026-03-15T10:00:00',
         capacity: 40,
         location: 'Lecture Hall B',
         registered_count: 38,
@@ -162,13 +161,13 @@ const SchoolDashboard: React.FC = () => {
         is_full: false,
         type: 'seminar' as const,
         status: 'completed' as const,
-        created_at: '2024-11-10T10:00:00'
+        created_at: '2026-02-10T10:00:00'
       },
       {
         id: 5,
         title: 'Robotics Workshop',
         description: 'Introduction to robotics and Arduino programming.',
-        date: '2025-01-10T13:00:00',
+        date: '2026-06-10T13:00:00',
         capacity: 25,
         location: 'STEM Lab',
         registered_count: 20,
@@ -176,7 +175,7 @@ const SchoolDashboard: React.FC = () => {
         is_full: false,
         type: 'workshop' as const,
         status: 'active' as const,
-        created_at: '2024-12-01T10:00:00'
+        created_at: '2026-04-10T10:00:00'
       }
     ];
     setEvents(mockEvents);
@@ -189,9 +188,9 @@ const SchoolDashboard: React.FC = () => {
         id: 1,
         student_name: 'Ahmed Benali',
         student_email: 'ahmed.benali@student.dz',
-        event_title: 'Science Fair 2024',
+        event_title: 'Science Fair 2026',
         status: 'approved',
-        registered_at: '2024-12-01T10:30:00'
+        registered_at: '2026-04-05T10:30:00'
       },
       {
         id: 2,
@@ -199,7 +198,7 @@ const SchoolDashboard: React.FC = () => {
         student_email: 'sarah.mansouri@student.dz',
         event_title: 'Programming Workshop',
         status: 'pending',
-        registered_at: '2024-12-05T14:15:00'
+        registered_at: '2026-04-16T14:15:00'
       },
       {
         id: 3,
@@ -207,7 +206,7 @@ const SchoolDashboard: React.FC = () => {
         student_email: 'karim.hadj@student.dz',
         event_title: 'Art Exhibition',
         status: 'approved',
-        registered_at: '2024-12-08T09:45:00'
+        registered_at: '2026-04-12T09:45:00'
       },
       {
         id: 4,
@@ -215,15 +214,15 @@ const SchoolDashboard: React.FC = () => {
         student_email: 'leila.bouaziz@student.dz',
         event_title: 'Robotics Workshop',
         status: 'pending',
-        registered_at: '2024-12-10T16:20:00'
+        registered_at: '2026-04-14T16:20:00'
       },
       {
         id: 5,
         student_name: 'Mohamed Kaci',
         student_email: 'mohamed.kaci@student.dz',
-        event_title: 'Science Fair 2024',
+        event_title: 'Science Fair 2026',
         status: 'approved',
-        registered_at: '2024-12-12T11:00:00'
+        registered_at: '2026-04-12T11:00:00'
       }
     ];
     setRegistrations(mockRegistrations);
@@ -231,7 +230,7 @@ const SchoolDashboard: React.FC = () => {
 
   const handleCreateEvent = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Mock create event - no backend required
     const newEventData = {
       id: events.length + 1,
@@ -247,7 +246,7 @@ const SchoolDashboard: React.FC = () => {
       status: 'active' as const,
       created_at: new Date().toISOString()
     };
-    
+
     setEvents(prev => [...prev, newEventData]);
     toast.success(`${newEvent.type.charAt(0).toUpperCase() + newEvent.type.slice(1)} created successfully!`);
     setShowCreateModal(false);
@@ -263,7 +262,7 @@ const SchoolDashboard: React.FC = () => {
 
   const handleDeleteEvent = async (eventId: number) => {
     if (!window.confirm('Are you sure you want to delete this event?')) return;
-    
+
     // Mock delete event - no backend required
     setEvents(prev => prev.filter(event => event.id !== eventId));
     toast.success('Event deleted successfully!');
@@ -271,7 +270,7 @@ const SchoolDashboard: React.FC = () => {
 
   const handleUpdateEvent = async (eventId: number, updates: Partial<Event>) => {
     // Mock update event - no backend required
-    setEvents(prev => prev.map(event => 
+    setEvents(prev => prev.map(event =>
       event.id === eventId ? { ...event, ...updates } : event
     ));
     toast.success('Event updated successfully!');
@@ -279,7 +278,7 @@ const SchoolDashboard: React.FC = () => {
 
   const handleApproveRegistration = async (registrationId: number) => {
     // Mock approve registration - no backend required
-    setRegistrations(prev => prev.map(reg => 
+    setRegistrations(prev => prev.map(reg =>
       reg.id === registrationId ? { ...reg, status: 'approved' } : reg
     ));
     toast.success('Registration approved!');
@@ -287,7 +286,7 @@ const SchoolDashboard: React.FC = () => {
 
   const handleRejectRegistration = async (registrationId: number) => {
     // Mock reject registration - no backend required
-    setRegistrations(prev => prev.map(reg => 
+    setRegistrations(prev => prev.map(reg =>
       reg.id === registrationId ? { ...reg, status: 'rejected' } : reg
     ));
     toast.success('Registration rejected!');
@@ -309,7 +308,7 @@ const SchoolDashboard: React.FC = () => {
     }
   };
 
-  const filteredEvents = events.filter(event => 
+  const filteredEvents = events.filter(event =>
     event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     event.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -318,7 +317,7 @@ const SchoolDashboard: React.FC = () => {
     totalEvents: events.length,
     totalRegistrations: registrations.length,
     upcomingEvents: events.filter(e => new Date(e.date) > new Date()).length,
-    averageAttendance: events.length > 0 
+    averageAttendance: events.length > 0
       ? Math.round((events.reduce((sum, e) => sum + e.registered_count, 0) / events.reduce((sum, e) => sum + e.capacity, 0)) * 100)
       : 0
   };
@@ -326,7 +325,6 @@ const SchoolDashboard: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -339,40 +337,40 @@ const SchoolDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user?.name}! 🏫
+            Welcome back, {user?.name}!
           </h1>
           <p className="text-gray-600">
             Manage your events, workshops, and track student registrations.
           </p>
+          <hr className="w-[450px] border-gray-300 mt-4 border-t-2" />
         </div>
 
         {/* Stats Cards */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+          <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer">
             <div className="text-center">
               <div className="text-3xl font-bold mb-1">{stats.totalEvents}</div>
               <div className="text-blue-100">Total Events</div>
             </div>
           </Card>
-          <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
+          <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer">
             <div className="text-center">
               <div className="text-3xl font-bold mb-1">{stats.totalRegistrations}</div>
               <div className="text-green-100">Total Registrations</div>
             </div>
           </Card>
-          <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+          <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer">
             <div className="text-center">
               <div className="text-3xl font-bold mb-1">{stats.upcomingEvents}</div>
               <div className="text-purple-100">Upcoming Events</div>
             </div>
           </Card>
-          <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+          <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer">
             <div className="text-center">
               <div className="text-3xl font-bold mb-1">{stats.averageAttendance}%</div>
               <div className="text-orange-100">Avg. Attendance</div>
@@ -382,8 +380,8 @@ const SchoolDashboard: React.FC = () => {
 
         {/* Action Bar */}
         <div className="flex flex-wrap gap-4 mb-8">
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             onClick={() => setShowCreateModal(true)}
           >
             + Create Event/Workshop
@@ -409,11 +407,10 @@ const SchoolDashboard: React.FC = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                activeTab === tab.id
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === tab.id
                   ? 'bg-blue-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-100'
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -464,13 +461,13 @@ const SchoolDashboard: React.FC = () => {
                         </button>
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-600 mb-4 line-clamp-2">{event.description}</p>
-                    
+
                     <div className="space-y-2 mb-4 text-sm text-gray-500">
                       <div className="flex items-center">
                         <span className="w-4 h-4 mr-2">📅</span>
-                        {new Date(event.date).toLocaleDateString()} at {new Date(event.date).toLocaleTimeString()}
+                        {new Date(event.date).toLocaleDateString()} at {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                       <div className="flex items-center">
                         <span className="w-4 h-4 mr-2">📍</span>
@@ -478,17 +475,17 @@ const SchoolDashboard: React.FC = () => {
                       </div>
                       <div className="flex items-center">
                         <span className="w-4 h-4 mr-2">👥</span>
-                        {event.registered_count}/{event.capacity} registered
+                        {event.registered_count}/{event.capacity} seats
                       </div>
                     </div>
-                    
+
                     <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
-                      <div 
+                      <div
                         className="bg-blue-600 h-2 rounded-full"
                         style={{ width: `${(event.registered_count / event.capacity) * 100}%` }}
                       ></div>
                     </div>
-                    
+
                     <div className="flex gap-2">
                       <Button
                         variant="outline"
@@ -499,6 +496,16 @@ const SchoolDashboard: React.FC = () => {
                         }}
                       >
                         View Participants
+                      </Button>
+                      <Button
+                        variant="primary"
+                        className="flex-1 text-sm"
+                        onClick={() => {
+                          // Placeholder for Register Now action
+                          toast.success('Registration feature coming soon!');
+                        }}
+                      >
+                        Register Now
                       </Button>
                     </div>
                   </Card>
@@ -543,13 +550,12 @@ const SchoolDashboard: React.FC = () => {
                           </td>
                           <td className="py-3 px-4 text-gray-700">{registration.event_title}</td>
                           <td className="py-3 px-4">
-                            <span className={`px-2 py-1 text-xs rounded-full ${
-                              registration.status === 'approved' 
-                                ? 'bg-green-100 text-green-800' 
+                            <span className={`px-2 py-1 text-xs rounded-full ${registration.status === 'approved'
+                                ? 'bg-green-100 text-green-800'
                                 : registration.status === 'rejected'
-                                ? 'bg-red-100 text-red-800'
-                                : 'bg-yellow-100 text-yellow-800'
-                            }`}>
+                                  ? 'bg-red-100 text-red-800'
+                                  : 'bg-yellow-100 text-yellow-800'
+                              }`}>
                               {registration.status}
                             </span>
                           </td>
@@ -603,7 +609,7 @@ const SchoolDashboard: React.FC = () => {
                       </div>
                     </div>
                     <div className="w-32 bg-gray-200 rounded-full h-2">
-                      <div 
+                      <div
                         className="bg-blue-600 h-2 rounded-full"
                         style={{ width: `${(event.registered_count / event.capacity) * 100}%` }}
                       ></div>
@@ -615,17 +621,17 @@ const SchoolDashboard: React.FC = () => {
                 ))}
               </div>
             </Card>
-            
+
             <Card>
               <h3 className="text-xl font-bold text-gray-900 mb-4">🎯 Quick Stats</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Most Popular Event</span>
                   <span className="font-semibold text-gray-900">
-                    {events.length > 0 
-                      ? events.reduce((max, event) => 
-                          event.registered_count > max.registered_count ? event : max
-                        ).title
+                    {events.length > 0
+                      ? events.reduce((max, event) =>
+                        event.registered_count > max.registered_count ? event : max
+                      ).title
                       : 'N/A'
                     }
                   </span>
@@ -639,7 +645,7 @@ const SchoolDashboard: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Average per Event</span>
                   <span className="font-semibold text-gray-900">
-                    {events.length > 0 
+                    {events.length > 0
                       ? Math.round(events.reduce((sum, e) => sum + e.registered_count, 0) / events.length)
                       : 0
                     } students
@@ -656,20 +662,20 @@ const SchoolDashboard: React.FC = () => {
             <Card className="w-full max-w-lg max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-bold">Create New Event/Workshop</h3>
-                <button 
+                <button
                   onClick={() => setShowCreateModal(false)}
                   className="text-gray-500 hover:text-gray-700"
                 >
                   ✕
                 </button>
               </div>
-              
+
               <form onSubmit={handleCreateEvent} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
                   <select
                     value={newEvent.type}
-                    onChange={(e) => setNewEvent({...newEvent, type: e.target.value as any})}
+                    onChange={(e) => setNewEvent({ ...newEvent, type: e.target.value as any })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                   >
                     <option value="event">Event</option>
@@ -677,7 +683,7 @@ const SchoolDashboard: React.FC = () => {
                     <option value="seminar">Seminar</option>
                   </select>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
                   <input
@@ -685,11 +691,11 @@ const SchoolDashboard: React.FC = () => {
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     value={newEvent.title}
-                    onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}
+                    onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
                     placeholder="Enter event title"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                   <textarea
@@ -697,11 +703,11 @@ const SchoolDashboard: React.FC = () => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     rows={3}
                     value={newEvent.description}
-                    onChange={(e) => setNewEvent({...newEvent, description: e.target.value})}
+                    onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
                     placeholder="Describe your event..."
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Date & Time</label>
                   <input
@@ -709,10 +715,10 @@ const SchoolDashboard: React.FC = () => {
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     value={newEvent.date}
-                    onChange={(e) => setNewEvent({...newEvent, date: e.target.value})}
+                    onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Capacity</label>
                   <input
@@ -721,22 +727,22 @@ const SchoolDashboard: React.FC = () => {
                     min="1"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     value={newEvent.capacity}
-                    onChange={(e) => setNewEvent({...newEvent, capacity: e.target.value})}
+                    onChange={(e) => setNewEvent({ ...newEvent, capacity: e.target.value })}
                     placeholder="Number of participants"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
                   <input
                     type="text"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     value={newEvent.location}
-                    onChange={(e) => setNewEvent({...newEvent, location: e.target.value})}
+                    onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
                     placeholder="Event location (optional)"
                   />
                 </div>
-                
+
                 <div className="flex space-x-4 pt-4">
                   <Button
                     type="button"
