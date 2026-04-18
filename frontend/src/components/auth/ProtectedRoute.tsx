@@ -7,15 +7,16 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
-  const { isAuthenticated, user } = useAuthStore()
+  // Temporarily disabled authentication for development
+  // const { isAuthenticated, user } = useAuthStore()
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to="/login" replace />
+  // }
 
-  if (user && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />
-  }
+  // if (user && !allowedRoles.includes(user.role)) {
+  //   return <Navigate to="/" replace />
+  // }
 
   return <>{children}</>
 }

@@ -1,4 +1,4 @@
-# Maktabi - Setup Guide
+   # Maktabi - Setup Guide
 
 ## 🚀 Quick Start
 

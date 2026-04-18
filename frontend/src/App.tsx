@@ -1,7 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import { useAuthStore } from './store/authStore'
-import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
 
 // Auth pages
 import Login from './pages/auth/Login'
@@ -43,7 +41,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
       <main className="flex-1">
         <Routes>
           {/* Public routes */}
@@ -95,7 +92,7 @@ function App() {
           } />
         </Routes>
       </main>
-      <Footer />
+
     </div>
   )
 }
